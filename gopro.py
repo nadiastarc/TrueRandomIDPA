@@ -13,7 +13,7 @@ def take_photo_and_generate_hash():
 
     # Generate hash based on pixels
     hash_code = generate_hash_from_image("Test.JPG")
-    print("Hash code:", hash_code
+    print("Hash code:", hash_code)
 
     # Delete the last taken photo
     go_pro.delete("last")

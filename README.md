@@ -3,7 +3,7 @@
 ### Set up ***GoPro hero 8*** to take pictures (with Python)
 
 ##### first setup
-1. Download GoPro App
+1. Download GoPro App on Phone
 2. connect GoPro with App (over bluetooth)
 ---
 ##### connect GoPro with Laptop
@@ -14,3 +14,9 @@
    3. click cancel
 4. at the PC select the network "Hero8 Black"
 > Network-password: Einstellungen < Verbindungen < Kamerainfo
+
+#####  Use Code
+>used IDE: PyCharm
+
+1. install: ```pip install goprocam```
+
