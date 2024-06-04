@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Lotto</title>
+<link rel="stylesheet" href="stylesheetLotto.css">
+    <script src="lottoLogic.js"></script>
+
+</head>
+  <body>
+
+    <div class="container">
+      <form class="row" onSubmit="generate(event)">
+        <div>
+          <div>
+            <label>max. Nummern</label>
+            <input class="form-control" id="max-numbers" type="number" size="2" min="1" max="100" value="5"/>
+          </div>
+        </div>
+        <div>
+          <div>
+            <label>Nummern wählen</label>
+            <input class="form-control" id="numbers-to-pick" type="number" size="2" min="1" max="100" value="2"/>
+          </div>
+        </div>
+        <div>
+          <label>&nbsp;</label>
+          <button class="form-control">Zahlen  ziehen</button>
+        </div>
+      </form>
+      <div id="result-row">
+        <div>
+          <h6 class="d-inline-block text-muted">Gezogene Zahlen</h6>
+          <h3 class="d-inline-block ml-1" id="results"></h3>
+        </div>
+      </div>
+      <div class="row">
+        <div class="numbers"></div>
+      </div>
+    </div>
+  </body>
+</html>
