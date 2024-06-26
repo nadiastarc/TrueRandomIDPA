@@ -19,4 +19,5 @@
 >used IDE: PyCharm
 
 1. install: ```pip install goprocam```
+1. install: ```pip install Flask```
 

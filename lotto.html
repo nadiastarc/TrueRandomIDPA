@@ -3,40 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <title>Lotto</title>
-<link rel="stylesheet" href="stylesheetLotto.css">
-    <script src="lottoLogic.js"></script>
-
+    <link rel="stylesheet" href="stylesheetLotto.css">
 </head>
-  <body>
-
+<body>
     <div class="container">
-      <form class="row" onSubmit="generate(event)">
-        <div>
-          <div>
-            <label>max. Nummern</label>
-            <input class="form-control" id="max-numbers" type="number" size="2" min="1" max="100" value="5"/>
-          </div>
+        <form class="row" onsubmit="sendData(event)">
+            <div>
+                <div>
+                    <label>max. Nummern</label>
+                    <input class="form-control" id="max-numbers" type="number" size="2" min="1" max="100" value="5"/>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <label>Nummern wählen</label>
+                    <input class="form-control" id="numbers-to-pick" type="number" size="2" min="1" max="100" value="2"/>
+                </div>
+            </div>
+            <div>
+                <label>&nbsp;</label>
+                <button class="form-control" type="submit">Zahlen ziehen</button>
+            </div>
+        </form>
+        <div id="result-row">
+            <div>
+                <h6 class="d-inline-block text-muted">Gezogene Zahlen</h6>
+                <h3 class="d-inline-block ml-1" id="results"></h3>
+            </div>
         </div>
-        <div>
-          <div>
-            <label>Nummern wählen</label>
-            <input class="form-control" id="numbers-to-pick" type="number" size="2" min="1" max="100" value="2"/>
-          </div>
+        <div class="row">
+            <div class="numbers"></div>
         </div>
-        <div>
-          <label>&nbsp;</label>
-          <button class="form-control">Zahlen  ziehen</button>
-        </div>
-      </form>
-      <div id="result-row">
-        <div>
-          <h6 class="d-inline-block text-muted">Gezogene Zahlen</h6>
-          <h3 class="d-inline-block ml-1" id="results"></h3>
-        </div>
-      </div>
-      <div class="row">
-        <div class="numbers"></div>
-      </div>
     </div>
-  </body>
+
+    <script>
+        function sendData(event) {
+            event.preventDefault();
+            const numbersToPick = document.getElementById('numbers-to-pick').value;
+            console.log(`Sending numbers to pick: ${numbersToPick}`);
+
+            fetch('/process', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ numbers_to_pick: numbersToPick }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                document.getElementById('results').innerText = data.hash_codes.join(', ');
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
 </html>
