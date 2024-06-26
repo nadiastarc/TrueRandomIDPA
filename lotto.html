@@ -39,20 +39,26 @@
     <script>
         function sendData(event) {
             event.preventDefault();
+            const maxNumbers = document.getElementById('max-numbers').value;
             const numbersToPick = document.getElementById('numbers-to-pick').value;
-            console.log(`Sending numbers to pick: ${numbersToPick}`);
+            console.log(`Sending max numbers: ${maxNumbers}, numbers to pick: ${numbersToPick}`);
 
             fetch('/process', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ numbers_to_pick: numbersToPick }),
+                body: JSON.stringify({ max_numbers: maxNumbers, numbers_to_pick: numbersToPick }),
             })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
             .then(data => {
                 console.log('Success:', data);
-                document.getElementById('results').innerText = data.hash_codes.join(', ');
+                document.getElementById('results').innerText = data.decimal_values.join(', ');
             })
             .catch((error) => {
                 console.error('Error:', error);
