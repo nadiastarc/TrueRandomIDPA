@@ -3,7 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <title>Lotto</title>
-    <link rel="stylesheet" href="stylesheetLotto.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-control {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .row {
+            margin-bottom: 20px;
+        }
+
+        #numbers {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .number {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 50%;
+            background-color: #f0f0f0;
+            font-size: 14px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .number.chosen {
+            background-color: #4caf50;
+            color: white;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -32,11 +79,25 @@
             </div>
         </div>
         <div class="row">
-            <div class="numbers"></div>
+            <div id="numbers" class="numbers"></div>
         </div>
     </div>
 
     <script>
+        function displayNumbers(maxNumbers, chosenNumbers) {
+            const numbersContainer = document.getElementById('numbers');
+            numbersContainer.innerHTML = '';
+            for (let i = 1; i <= maxNumbers; i++) {
+                const numberElement = document.createElement('div');
+                numberElement.className = 'number';
+                numberElement.innerText = i;
+                if (chosenNumbers.includes(i)) {
+                    numberElement.classList.add('chosen');
+                }
+                numbersContainer.appendChild(numberElement);
+            }
+        }
+
         function sendData(event) {
             event.preventDefault();
             const maxNumbers = document.getElementById('max-numbers').value;
@@ -58,7 +119,9 @@
             })
             .then(data => {
                 console.log('Success:', data);
-                document.getElementById('results').innerText = data.decimal_values.join(', ');
+                const chosenNumbers = data.decimal_values;
+                document.getElementById('results').innerText = chosenNumbers.join(', ');
+                displayNumbers(parseInt(maxNumbers), chosenNumbers);
             })
             .catch((error) => {
                 console.error('Error:', error);
